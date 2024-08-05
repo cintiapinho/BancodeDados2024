@@ -1,0 +1,94 @@
+CREATE TABLE proprietario (
+id_prop int(11) PRIMARY KEY auto_increment,
+nasc date,
+nome varchar(255),
+email varchar(255) unique,
+cpf varchar(255) unique,
+telefone varchar(255),
+banco vachar(255),
+agencia vachar(255),
+conta vachar(255),
+pix vachar(255),
+)
+
+CREATE TABLE fiador (
+id_fiador int(11) PRIMARY KEY auto_increment,
+nome varchar(255),
+email varchar(255) unique,
+cpf varchar(255) unique,
+nasc varchar(255),
+)
+
+CREATE TABLE corretor (
+id_corretor int(11) PRIMARY KEY auto_increment,
+nome varchar(255),
+email varchar(255) unique,
+cpf varchar(255) unique,
+nasc date,
+)
+
+CREATE TABLE endereco (
+id_endereco int(11) PRIMARY KEY auto_increment,
+rua varchar(255),
+numero varchar(255),
+complemento varchar(255),
+bairro varchar(255),
+cidade varchar(255),
+estado varchar(255),
+CEP varchar(255)
+)
+
+CREATE TABLE inquilino (
+id_inquilino int(11) PRIMARY KEY auto_increment,
+nome varchar(255),
+email varchar(255) unique,
+cpf varchar(255) unique,
+nasc date,
+id_fiador int(11),
+FOREIGN KEY(id_fiador) REFERENCES fiador (id_fiador)
+)
+
+CREATE TABLE imovel (
+id_imovel varchar(255) PRIMARY KEY auto_increment,
+qtd_banheiro int,
+qts_quarto int,
+area int,
+garagem bit,
+extras varchar(255),
+lavanderia bit,
+churrasqueira Texto(1),
+piscina bit,
+suite bit,
+qtdecarros int,
+id_prop int(11),
+id_endereco int(11),
+FOREIGN KEY(id_prop) REFERENCES proprietario (id_prop),
+FOREIGN KEY(id_endereco) REFERENCES endereco (id_endereco)
+)
+
+CREATE TABLE aluguel (
+id_aluguel int(11) PRIMARY KEY auto_increment,
+inicio date,
+fim date,
+valor decimal(4,2),
+id_corretor int(11),
+id_inquilino int(11),
+id_imovel varchar(255),
+id_inquilino int(11),
+id_corretor int(11),
+FOREIGN KEY(id_corretor) REFERENCES corretor (id_corretor)
+FOREIGN KEY(id_inquilino) REFERENCES inquilino (id_inquilino)
+ALTER TABLE aluguel ADD FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
+
+
+
+
+CREATE TABLE midias (
+idfoto Texto(1) PRIMARY KEY,
+midia varchar(255),
+id_imovel varchar(255),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
